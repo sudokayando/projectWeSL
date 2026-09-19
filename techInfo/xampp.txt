@@ -1,0 +1,7 @@
+1. sudo /opt/lampp/lampp start
+sudo /opt/lampp/lampp stop
+sudo /opt/lampp/lampp restart
+sudo /opt/lampp/lampp status
+
+
+phpmyadmin coding some_general_ci

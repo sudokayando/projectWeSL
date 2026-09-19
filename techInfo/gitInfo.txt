@@ -1,0 +1,17 @@
+
+    to send
+1. git status 
+2. git diff 
+3. git add . / git add index.php
+4. git commit -m "Add initial scanner logic"
+5. git push / git push --force
+
+    to get 
+1. git status 
+2. git git clone git@github.com:sudokayando/REPO_NAME.git
+3. git pull
+4. git git log --oneline (history)
+
+
+    other
+1. git remote -v 

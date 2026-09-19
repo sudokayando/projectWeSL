@@ -1,0 +1,8 @@
+mysqldump -u root -p security_lab > database.sql
+
+git add database.sql
+git commit -m "Add database dump"
+git push
+
+    on windows
+mysql -u root -p security_lab < database.sql
