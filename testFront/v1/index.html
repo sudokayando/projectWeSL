@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShadowLab — Security Research Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#dashboard" data-page="dashboard" aria-label="ShadowLab home">
+        <span class="brand-mark">S</span>
+        <span class="brand-copy">
+          <strong>shadowlab</strong>
+          <small>security research platform</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Основная навигация">
+        <a href="#dashboard" class="nav-link active" data-page="dashboard">Dashboard</a>
+        <a href="#lab" class="nav-link" data-page="lab">Laboratory</a>
+        <a href="#history" class="nav-link" data-page="history">History</a>
+        <a href="#projects" class="nav-link" data-page="projects">Projects</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <span class="status-pill"><span class="status-dot"></span> System ready</span>
+        <button class="icon-btn" title="Notifications" aria-label="Notifications">⌁</button>
+        <button class="profile-chip" data-page="profile" title="Open profile">
+          <span class="avatar">AK</span>
+          <span class="profile-name">Alex K.</span>
+          <span class="chevron">⌄</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-wrap">
+      <!-- DASHBOARD -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Workspace / Overview</p>
+            <h1>Good afternoon, Alex.</h1>
+            <p class="muted">Run controlled web-security research from one place.</p>
+          </div>
+          <div class="heading-actions">
+            <button class="btn btn-ghost" id="newProjectBtn">+ New project</button>
+            <button class="btn btn-primary" data-page="lab">Open laboratory</button>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-content">
+            <div class="hero-tag">LAB MODE <span>●</span></div>
+            <h2>Turn reconnaissance into a structured research session.</h2>
+            <p>Define a permitted target, run your tool chain, then inspect a unified view of domains, services, endpoints and findings.</p>
+            <button class="btn btn-primary" data-page="lab">Start a research session <span>→</span></button>
+          </div>
+          <div class="hero-grid" aria-hidden="true">
+            <div class="grid-glow"></div>
+            <div class="scan-line"></div>
+            <div class="hero-terminal">
+              <div><span class="accent">subfinder</span> 12 domains</div>
+              <div><span class="accent">httpx</span> 7 live hosts</div>
+              <div><span class="accent">ffuf</span> 19 endpoints</div>
+              <div><span class="accent">nuclei</span> 3 findings</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Workspace</p>
+            <h3>Research overview</h3>
+          </div>
+          <button class="text-btn" data-page="history">View history →</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top"><span>Projects</span><span class="stat-icon">⌁</span></div>
+            <strong>04</strong>
+            <small>2 active · 2 archived</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Research runs</span><span class="stat-icon">◴</span></div>
+            <strong>27</strong>
+            <small>+6 this month</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Targets</span><span class="stat-icon">◎</span></div>
+            <strong>08</strong>
+            <small>6 lab · 2 staging</small>
+          </article>
+          <article class="stat-card stat-accent">
+            <div class="stat-top"><span>Open findings</span><span class="stat-icon">!</span></div>
+            <strong>09</strong>
+            <small>3 high · 6 medium</small>
+          </article>
+        </div>
+
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-head">
+              <div><p class="eyebrow">Recent</p><h3>Latest research runs</h3></div>
+              <span class="panel-count">4 shown</span>
+            </div>
+            <div class="run-list">
+              <button class="run-row" data-page="lab">
+                <div class="run-main"><span class="run-status done"></span><div><strong>demo.lab.local</strong><small>full-web-chain</small></div></div>
+                <div class="run-meta"><span>9m ago</span><span class="badge badge-green">Completed</span></div>
+              </button>
+              <button class="run-row" data-page="lab">
+                <div class="run-main"><span class="run-status done"></span><div><strong>shop.lab.local</strong><small>recon-only</small></div></div>
+                <div class="run-meta"><span>1h ago</span><span class="badge badge-green">Completed</span></div>
+              </button>
+              <button class="run-row" data-page="lab">
+                <div class="run-main"><span class="run-status working"></span><div><strong>api.staging.local</strong><small>httpx → ffuf</small></div></div>
+                <div class="run-meta"><span>2h ago</span><span class="badge badge-orange">Running</span></div>
+              </button>
+              <button class="run-row" data-page="lab">
+                <div class="run-main"><span class="run-status done"></span><div><strong>training.local</strong><small>nuclei-only</small></div></div>
+                <div class="run-meta"><span>Yesterday</span><span class="badge">Completed</span></div>
+              </button>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div><p class="eyebrow">Pipeline</p><h3>Default workflow</h3></div>
+              <span class="badge badge-outline">4 tools</span>
+            </div>
+            <div class="pipeline-mini">
+              <div class="pipeline-node"><span class="tool-logo">S</span><div><strong>Subfinder</strong><small>subdomains</small></div></div>
+              <span class="pipe-arrow">→</span>
+              <div class="pipeline-node"><span class="tool-logo">H</span><div><strong>HTTPX</strong><small>live hosts</small></div></div>
+              <span class="pipe-arrow">→</span>
+              <div class="pipeline-node"><span class="tool-logo">F</span><div><strong>FFUF</strong><small>content</small></div></div>
+              <span class="pipe-arrow">→</span>
+              <div class="pipeline-node"><span class="tool-logo">N</span><div><strong>Nuclei</strong><small>findings</small></div></div>
+            </div>
+            <div class="panel-note"><span class="accent">Tip</span> Keep your chain visible while the run is active. It makes the data flow easier to understand.</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- LAB -->
+      <section class="page" id="page-lab">
+        <div class="page-heading compact">
+          <div>
+            <p class="eyebrow">Workspace / Laboratory</p>
+            <h1>Research laboratory</h1>
+            <p class="muted">One target. One controlled session. Four specialized tools.</p>
+          </div>
+          <div class="heading-actions">
+            <span class="lab-scope"><span class="status-dot"></span> Allowed lab target</span>
+          </div>
+        </div>
+
+        <article class="target-bar panel">
+          <div class="target-field-wrap">
+            <label for="targetInput">Research target</label>
+            <div class="target-input-row">
+              <span class="target-prefix">https://</span>
+              <input id="targetInput" value="demo.lab.local" autocomplete="off" />
+              <select id="scopeSelect" aria-label="Target scope">
+                <option>Single target</option>
+                <option>Project scope</option>
+              </select>
+            </div>
+            <small>Use only targets that are explicitly permitted for your laboratory or research environment.</small>
+          </div>
+          <div class="target-actions">
+            <button class="btn btn-ghost" id="clearRunBtn">Reset</button>
+            <button class="btn btn-primary" id="runPipelineBtn"><span class="play">▶</span> Run pipeline</button>
+          </div>
+        </article>
+
+        <div class="lab-grid">
+          <section class="panel pipeline-panel">
+            <div class="panel-head">
+              <div><p class="eyebrow">Execution</p><h3>Research pipeline</h3></div>
+              <span id="pipelineState" class="badge badge-outline">Ready</span>
+            </div>
+
+            <div class="tool-stack" id="toolStack">
+              <article class="tool-card" data-tool="subfinder">
+                <div class="tool-number">01</div>
+                <div class="tool-icon">S</div>
+                <div class="tool-copy"><strong>Subfinder</strong><span>Passive subdomain discovery</span></div>
+                <div class="tool-result"><strong id="subfinderResult">12</strong><span>domains</span></div>
+                <span class="tool-state">Ready</span>
+              </article>
+              <div class="connector"><span></span></div>
+              <article class="tool-card" data-tool="httpx">
+                <div class="tool-number">02</div>
+                <div class="tool-icon">H</div>
+                <div class="tool-copy"><strong>HTTPX</strong><span>HTTP probing & service metadata</span></div>
+                <div class="tool-result"><strong id="httpxResult">7</strong><span>live</span></div>
+                <span class="tool-state">Ready</span>
+              </article>
+              <div class="connector"><span></span></div>
+              <article class="tool-card" data-tool="ffuf">
+                <div class="tool-number">03</div>
+                <div class="tool-icon">F</div>
+                <div class="tool-copy"><strong>FFUF</strong><span>Content & endpoint discovery</span></div>
+                <div class="tool-result"><strong id="ffufResult">19</strong><span>endpoints</span></div>
+                <span class="tool-state">Ready</span>
+              </article>
+              <div class="connector"><span></span></div>
+              <article class="tool-card" data-tool="nuclei">
+                <div class="tool-number">04</div>
+                <div class="tool-icon">N</div>
+                <div class="tool-copy"><strong>Nuclei</strong><span>Template-based vulnerability checks</span></div>
+                <div class="tool-result"><strong id="nucleiResult">3</strong><span>findings</span></div>
+                <span class="tool-state">Ready</span>
+              </article>
+            </div>
+          </section>
+
+          <aside class="panel session-panel">
+            <div class="panel-head"><div><p class="eyebrow">Session</p><h3>Run details</h3></div><span class="session-id">LAB-0428</span></div>
+            <div class="detail-list">
+              <div><span>Status</span><strong id="sessionStatus">Ready to run</strong></div>
+              <div><span>Target</span><strong id="sessionTarget">demo.lab.local</strong></div>
+              <div><span>Started</span><strong id="sessionStarted">—</strong></div>
+              <div><span>Duration</span><strong id="sessionDuration">—</strong></div>
+            </div>
+            <div class="divider"></div>
+            <div class="mini-chart-title"><span>Objects discovered</span><strong id="objectsTotal">41</strong></div>
+            <div class="bar-chart" aria-label="Objects discovered chart">
+              <div class="bar-row"><span>Domains</span><div class="bar-track"><span style="width: 60%"></span></div><strong>12</strong></div>
+              <div class="bar-row"><span>Hosts</span><div class="bar-track"><span style="width: 35%"></span></div><strong>7</strong></div>
+              <div class="bar-row"><span>Endpoints</span><div class="bar-track"><span style="width: 95%"></span></div><strong>19</strong></div>
+              <div class="bar-row"><span>Findings</span><div class="bar-track"><span style="width: 15%"></span></div><strong>3</strong></div>
+            </div>
+          </aside>
+        </div>
+
+        <section class="panel results-panel">
+          <div class="panel-head results-head">
+            <div><p class="eyebrow">Normalized output</p><h3>Research results</h3></div>
+            <div class="result-actions"><button class="btn btn-small btn-ghost">Export JSON</button><button class="btn btn-small btn-ghost">Report</button></div>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Research result types">
+            <button class="tab active" data-result-tab="overview">Overview <span>41</span></button>
+            <button class="tab" data-result-tab="domains">Domains <span>12</span></button>
+            <button class="tab" data-result-tab="services">Services <span>7</span></button>
+            <button class="tab" data-result-tab="endpoints">Endpoints <span>19</span></button>
+            <button class="tab" data-result-tab="findings">Findings <span class="tab-warn">3</span></button>
+          </div>
+
+          <div class="result-view active" id="result-overview">
+            <div class="result-summary-grid">
+              <div class="summary-item"><span>Target</span><strong id="overviewTarget">demo.lab.local</strong><small>authorized laboratory scope</small></div>
+              <div class="summary-item"><span>Technologies</span><strong>5 detected</strong><small>PHP · nginx · PostgreSQL · React · Redis</small></div>
+              <div class="summary-item"><span>Open ports</span><strong>2 services</strong><small>443/tcp · 80/tcp</small></div>
+              <div class="summary-item"><span>Findings</span><strong class="accent">3 to review</strong><small>All evidence retained with the run</small></div>
+            </div>
+            <div class="terminal-box">
+              <div class="terminal-head"><span><i></i><i></i><i></i></span><small>normalized-run.log</small><span>LIVE VIEW</span></div>
+              <div class="terminal-body" id="terminalOutput">
+                <p><span class="t-muted">[12:42:01]</span> <span class="t-accent">subfinder</span> normalized 12 domains</p>
+                <p><span class="t-muted">[12:42:13]</span> <span class="t-accent">httpx</span> confirmed 7 live hosts</p>
+                <p><span class="t-muted">[12:42:29]</span> <span class="t-accent">ffuf</span> discovered 19 response-bearing endpoints</p>
+                <p><span class="t-muted">[12:42:44]</span> <span class="t-accent">nuclei</span> produced 3 findings for review</p>
+                <p><span class="t-muted">[12:42:45]</span> <span class="t-green">run completed</span> <span class="t-muted">— evidence stored</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-view" id="result-domains">
+            <div class="table-wrap"><table><thead><tr><th>Domain</th><th>Source</th><th>HTTP</th><th>Technology</th></tr></thead><tbody>
+              <tr><td class="mono">api.demo.lab.local</td><td>subfinder</td><td><span class="badge badge-green">200</span></td><td>nginx · PHP</td></tr>
+              <tr><td class="mono">admin.demo.lab.local</td><td>subfinder</td><td><span class="badge badge-green">200</span></td><td>nginx · React</td></tr>
+              <tr><td class="mono">dev.demo.lab.local</td><td>subfinder</td><td><span class="badge">403</span></td><td>nginx</td></tr>
+              <tr><td class="mono">cdn.demo.lab.local</td><td>subfinder</td><td><span class="badge badge-green">200</span></td><td>nginx</td></tr>
+            </tbody></table></div>
+          </div>
+
+          <div class="result-view" id="result-services">
+            <div class="table-wrap"><table><thead><tr><th>Host</th><th>Port</th><th>Scheme</th><th>Title</th><th>Server</th></tr></thead><tbody>
+              <tr><td class="mono">demo.lab.local</td><td>443</td><td>HTTPS</td><td>ShadowLab Demo</td><td>nginx</td></tr>
+              <tr><td class="mono">api.demo.lab.local</td><td>443</td><td>HTTPS</td><td>API Gateway</td><td>nginx</td></tr>
+              <tr><td class="mono">admin.demo.lab.local</td><td>443</td><td>HTTPS</td><td>Admin Console</td><td>nginx</td></tr>
+              <tr><td class="mono">demo.lab.local</td><td>80</td><td>HTTP</td><td>Redirect</td><td>nginx</td></tr>
+            </tbody></table></div>
+          </div>
+
+          <div class="result-view" id="result-endpoints">
+            <div class="table-wrap"><table><thead><tr><th>Method</th><th>Endpoint</th><th>Status</th><th>Size</th><th>Source</th></tr></thead><tbody>
+              <tr><td>GET</td><td class="mono">/api/v1/users</td><td>200</td><td>24.1 KB</td><td>ffuf</td></tr>
+              <tr><td>GET</td><td class="mono">/api/v1/health</td><td>200</td><td>0.9 KB</td><td>ffuf</td></tr>
+              <tr><td>GET</td><td class="mono">/admin</td><td>200</td><td>8.3 KB</td><td>ffuf</td></tr>
+              <tr><td>POST</td><td class="mono">/api/v1/auth/login</td><td>405</td><td>1.4 KB</td><td>ffuf</td></tr>
+            </tbody></table></div>
+          </div>
+
+          <div class="result-view" id="result-findings">
+            <div class="finding-list">
+              <article class="finding-row"><span class="severity high">HIGH</span><div><strong>Exposed administrative endpoint</strong><p><span class="mono">/admin</span> is reachable on the discovered web host. Review access controls within the authorized lab.</p></div><span class="finding-tool">nuclei</span></article>
+              <article class="finding-row"><span class="severity medium">MEDIUM</span><div><strong>Technology disclosure</strong><p>Server/framework headers reveal implementation details in the demo environment.</p></div><span class="finding-tool">nuclei</span></article>
+              <article class="finding-row"><span class="severity medium">MEDIUM</span><div><strong>Potentially exposed API route</strong><p><span class="mono">/api/v1/users</span> returned a response and should be reviewed for intended exposure.</p></div><span class="finding-tool">nuclei</span></article>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- HISTORY -->
+      <section class="page" id="page-history">
+        <div class="page-heading">
+          <div><p class="eyebrow">Workspace / History</p><h1>Research history</h1><p class="muted">Every run, preserved as a reproducible research record.</p></div>
+          <button class="btn btn-primary" data-page="lab">New run</button>
+        </div>
+        <section class="panel history-panel">
+          <div class="filter-row"><input class="search-input" id="historySearch" placeholder="Search target, project, or run ID..."/><div class="filter-buttons"><button class="filter active">All</button><button class="filter">Completed</button><button class="filter">Running</button></div></div>
+          <div class="table-wrap"><table id="historyTable"><thead><tr><th>Run</th><th>Target</th><th>Workflow</th><th>Started</th><th>Status</th><th></th></tr></thead><tbody>
+            <tr><td class="mono">LAB-0428</td><td>demo.lab.local</td><td>full-web-chain</td><td>Today, 12:42</td><td><span class="badge badge-green">Completed</span></td><td><button class="row-action" data-page="lab">Open →</button></td></tr>
+            <tr><td class="mono">LAB-0427</td><td>shop.lab.local</td><td>recon-only</td><td>Today, 11:18</td><td><span class="badge badge-green">Completed</span></td><td><button class="row-action" data-page="lab">Open →</button></td></tr>
+            <tr><td class="mono">LAB-0426</td><td>api.staging.local</td><td>httpx → ffuf</td><td>Today, 10:08</td><td><span class="badge badge-orange">Running</span></td><td><button class="row-action" data-page="lab">Open →</button></td></tr>
+            <tr><td class="mono">LAB-0425</td><td>training.local</td><td>nuclei-only</td><td>Yesterday, 16:34</td><td><span class="badge">Completed</span></td><td><button class="row-action" data-page="lab">Open →</button></td></tr>
+          </tbody></table></div>
+        </section>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="page" id="page-projects">
+        <div class="page-heading">
+          <div><p class="eyebrow">Workspace / Projects</p><h1>Projects</h1><p class="muted">Keep targets, runs and research context together.</p></div>
+          <button class="btn btn-primary" id="newProjectBtn2">+ New project</button>
+        </div>
+        <div class="project-grid">
+          <article class="project-card featured"><div class="project-top"><span class="project-icon">S</span><span class="badge badge-orange">Active</span></div><h3>Web Security Lab</h3><p>Primary educational laboratory environment.</p><div class="project-meta"><span>08 targets</span><span>18 runs</span><span>09 findings</span></div><button class="text-btn" data-page="lab">Open project →</button></article>
+          <article class="project-card"><div class="project-top"><span class="project-icon">R</span><span class="badge">Active</span></div><h3>Research Sandbox</h3><p>Experiments and integration testing.</p><div class="project-meta"><span>03 targets</span><span>05 runs</span><span>01 finding</span></div><button class="text-btn" data-page="lab">Open project →</button></article>
+          <article class="project-card"><div class="project-top"><span class="project-icon">T</span><span class="badge">Archived</span></div><h3>Training 01</h3><p>Completed vulnerability exercises.</p><div class="project-meta"><span>02 targets</span><span>04 runs</span><span>12 findings</span></div><button class="text-btn">View archive →</button></article>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section class="page" id="page-profile">
+        <div class="page-heading"><div><p class="eyebrow">Account</p><h1>Profile</h1><p class="muted">Workspace preferences and access settings.</p></div></div>
+        <div class="profile-grid">
+          <article class="panel profile-card"><div class="large-avatar">AK</div><h3>Alex K.</h3><p class="muted">Researcher account</p><div class="profile-badges"><span class="badge badge-orange">Lab access</span><span class="badge badge-outline">MFA enabled</span></div></article>
+          <article class="panel settings-card"><div class="panel-head"><div><p class="eyebrow">Settings</p><h3>Workspace</h3></div></div><label>Display name<input value="Alex K." /></label><label>Email<input value="alex@example.local" /></label><label>Default project<select><option>Web Security Lab</option><option>Research Sandbox</option></select></label><button class="btn btn-primary">Save changes</button></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-dot"></span><span id="toastText">Ready</span></div>
+  <script src="app.js"></script>
+</body>
+</html>

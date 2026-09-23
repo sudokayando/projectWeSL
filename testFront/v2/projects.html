@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ShadowLab — Projects</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/projects.css"></head><body><div class="app-shell"><header class="topbar">
+      <a class="brand" href="index.html" aria-label="ShadowLab home"><span class="brand-mark">S</span><span class="brand-copy"><strong>shadowlab</strong><small>security research platform</small></span></a>
+      <nav class="main-nav" aria-label="Основная навигация">
+      <a href="index.html" class="nav-link " data-page="dashboard">Dashboard</a>
+      <a href="laboratory.html" class="nav-link " data-page="lab">Laboratory</a>
+      <a href="history.html" class="nav-link " data-page="history">History</a>
+      <a href="projects.html" class="nav-link active" data-page="projects">Projects</a>
+    </nav>
+      <div class="topbar-actions"><span class="status-pill"><span class="status-dot"></span> System ready</span><button class="icon-btn" title="Notifications" aria-label="Notifications">⌁</button><a class="profile-chip" href="profile.html" title="Open profile"><span class="avatar">AK</span><span class="profile-name">Alex K.</span><span class="chevron">⌄</span></a></div>
+    </header><main class="page-wrap"><section class="page" id="page-projects">
+<div class="page-heading">
+<div><p class="eyebrow">Workspace / Projects</p><h1>Projects</h1><p class="muted">Keep targets, runs and research context together.</p></div>
+<button class="btn btn-primary" id="newProjectBtn2">+ New project</button>
+</div>
+<div class="project-grid">
+<article class="project-card featured"><div class="project-top"><span class="project-icon">S</span><span class="badge badge-orange">Active</span></div><h3>Web Security Lab</h3><p>Primary educational laboratory environment.</p><div class="project-meta"><span>08 targets</span><span>18 runs</span><span>09 findings</span></div><button class="text-btn" data-navigate="laboratory.html" type="button">Open project →</button></article>
+<article class="project-card"><div class="project-top"><span class="project-icon">R</span><span class="badge">Active</span></div><h3>Research Sandbox</h3><p>Experiments and integration testing.</p><div class="project-meta"><span>03 targets</span><span>05 runs</span><span>01 finding</span></div><button class="text-btn" data-navigate="laboratory.html" type="button">Open project →</button></article>
+<article class="project-card"><div class="project-top"><span class="project-icon">T</span><span class="badge">Archived</span></div><h3>Training 01</h3><p>Completed vulnerability exercises.</p><div class="project-meta"><span>02 targets</span><span>04 runs</span><span>12 findings</span></div><button class="text-btn">View archive →</button></article>
+</div>
+</section></main></div><div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-dot"></span><span id="toastText">Ready</span></div><script src="js/main.js"></script></body></html>

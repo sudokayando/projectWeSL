@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ShadowLab — History</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/history.css"></head><body><div class="app-shell"><header class="topbar">
+      <a class="brand" href="index.html" aria-label="ShadowLab home"><span class="brand-mark">S</span><span class="brand-copy"><strong>shadowlab</strong><small>security research platform</small></span></a>
+      <nav class="main-nav" aria-label="Основная навигация">
+      <a href="index.html" class="nav-link " data-page="dashboard">Dashboard</a>
+      <a href="laboratory.html" class="nav-link " data-page="lab">Laboratory</a>
+      <a href="history.html" class="nav-link active" data-page="history">History</a>
+      <a href="projects.html" class="nav-link " data-page="projects">Projects</a>
+    </nav>
+      <div class="topbar-actions"><span class="status-pill"><span class="status-dot"></span> System ready</span><button class="icon-btn" title="Notifications" aria-label="Notifications">⌁</button><a class="profile-chip" href="profile.html" title="Open profile"><span class="avatar">AK</span><span class="profile-name">Alex K.</span><span class="chevron">⌄</span></a></div>
+    </header><main class="page-wrap"><section class="page" id="page-history">
+<div class="page-heading">
+<div><p class="eyebrow">Workspace / History</p><h1>Research history</h1><p class="muted">Every run, preserved as a reproducible research record.</p></div>
+<button class="btn btn-primary" data-navigate="laboratory.html" type="button">New run</button>
+</div>
+<section class="panel history-panel">
+<div class="filter-row"><input class="search-input" id="historySearch" placeholder="Search target, project, or run ID..."/><div class="filter-buttons"><button class="filter active">All</button><button class="filter">Completed</button><button class="filter">Running</button></div></div>
+<div class="table-wrap"><table id="historyTable"><thead><tr><th>Run</th><th>Target</th><th>Workflow</th><th>Started</th><th>Status</th><th></th></tr></thead><tbody>
+<tr><td class="mono">LAB-0428</td><td>demo.lab.local</td><td>full-web-chain</td><td>Today, 12:42</td><td><span class="badge badge-green">Completed</span></td><td><button class="row-action" data-navigate="laboratory.html" type="button">Open →</button></td></tr>
+<tr><td class="mono">LAB-0427</td><td>shop.lab.local</td><td>recon-only</td><td>Today, 11:18</td><td><span class="badge badge-green">Completed</span></td><td><button class="row-action" data-navigate="laboratory.html" type="button">Open →</button></td></tr>
+<tr><td class="mono">LAB-0426</td><td>api.staging.local</td><td>httpx → ffuf</td><td>Today, 10:08</td><td><span class="badge badge-orange">Running</span></td><td><button class="row-action" data-navigate="laboratory.html" type="button">Open →</button></td></tr>
+<tr><td class="mono">LAB-0425</td><td>training.local</td><td>nuclei-only</td><td>Yesterday, 16:34</td><td><span class="badge">Completed</span></td><td><button class="row-action" data-navigate="laboratory.html" type="button">Open →</button></td></tr>
+</tbody></table></div>
+</section>
+</section></main></div><div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-dot"></span><span id="toastText">Ready</span></div><script src="js/main.js"></script><script src="js/history.js"></script></body></html>

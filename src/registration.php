@@ -16,7 +16,7 @@ $sql = "INSERT INTO `users` (login, password) VALUES('$login', '$password')";
 
 if ($connect -> query($sql) === TRUE) {
     echo 'registrated';
-    header(header: "Location: /login.html ")
+    header(header: "Location: /login.html ");
 } else {
     echo 'this user already registrated';
 }
