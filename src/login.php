@@ -33,4 +33,6 @@ if($result -> num_rows > 0){
     echo 'incorrect password or id'
 }
 
+
+//print_r("test")
 ?>
