@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once __DIR__ . '/helpers.php';
 
 // data getting form db
@@ -14,6 +16,7 @@ $sql = "INSERT INTO `users` (login, password) VALUES('$login', '$password')";
 
 if ($connect -> query($sql) === TRUE) {
     echo 'registrated';
+    header(header: "Location: /login.html ")
 } else {
     echo 'this user already registrated';
 }
