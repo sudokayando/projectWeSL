@@ -1,4 +1,4 @@
-package passive
+zpackage passive
 
 import (
 	"context"

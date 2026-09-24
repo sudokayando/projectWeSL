@@ -1,0 +1,67 @@
+/* History */ /* History / projects / profile */ .history-panel {
+    padding: 0;
+}
+.filter-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    padding: 14px;
+    border-bottom: 1px solid var(--line);
+}
+.search-input {
+    width: min(390px, 100%);
+    border: 1px solid var(--line-strong);
+    background: #0d0f12;
+    color: var(--text);
+    border-radius: 0px; /*9px*/
+    padding: 10px 12px;
+    outline: 0;
+    font-size: 11px;
+}
+.search-input:focus,
+.settings-card input:focus,
+.settings-card select:focus,
+.target-input-row:focus-within {
+    border-color: rgba(255, 122, 26, .48);
+}
+.filter-buttons {
+    display: flex;
+    gap: 5px;
+}
+.filter {
+    border: 1px solid var(--line);
+    background: #101215;
+    border-radius: 0px; /*8px*/
+    color: var(--muted);
+    padding: 8px 10px;
+    font-size: 9px;
+    cursor: pointer;
+}
+.filter.active {
+    color: var(--text);
+    border-color: var(--line-strong);
+}
+.history-panel .table-wrap {
+    border: 0;
+    border-radius: 0;
+}
+.row-action {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 10px;
+}
+.row-action:hover {
+    color: var(--orange);
+}
+@media (max-width:700px) {
+    .filter-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+    .search-input {
+        width: 100%;
+    }
+}

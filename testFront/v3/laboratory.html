@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShadowLab — Lab</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/laboratory.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <header class="topbar">
+                <a class="brand" href="index.html" aria-label="ShadowLab home">
+                    <span class="brand-mark">S</span>
+                    <span class="brand-copy"><strong>shadowlab</strong><small>security research platform</small></span>
+                </a>
+                <nav class="main-nav" aria-label="Основная навигация">
+                    <a href="index.html" class="nav-link" data-page="dashboard">Dashboard</a>
+                    <a href="laboratory.html" class="nav-link active" data-page="lab">Laboratory</a>
+                    <a href="history.html" class="nav-link" data-page="history">History</a>
+                    <a href="projects.html" class="nav-link" data-page="projects">Projects</a>
+                </nav>
+                <div class="topbar-actions">
+                    <span class="status-pill"><span class="status-dot"></span> System ready</span>
+                    <button class="icon-btn" title="Notifications" aria-label="Notifications">⌁</button>
+                    <a class="profile-chip" href="profile.html" title="Open profile"><span class="avatar">AK</span><span class="profile-name">Alex K.</span><span class="chevron">⌄</span></a>
+                </div>
+            </header>
+            <main class="page-wrap">
+                <section class="page" id="page-lab">
+                    <div class="page-heading compact">
+                        <div>
+                            <p class="eyebrow">Workspace / Laboratory</p>
+                            <h1>Research laboratory</h1>
+                            <p class="muted">One target. One controlled session. Four specialized tools.</p>
+                        </div>
+                        <div class="heading-actions"><span class="lab-scope"><span class="status-dot"></span> Allowed lab target</span></div>
+                    </div>
+                    <article class="target-bar panel">
+                        <div class="target-field-wrap">
+                            <label for="targetInput">Research target</label>
+                            <div class="target-input-row">
+                                <span class="target-prefix">https://</span>
+                                <input autocomplete="off" id="targetInput" value="demo.lab.local">
+                                <select aria-label="Target scope" id="scopeSelect">
+                                    <option>Single target</option>
+                                    <option>Project scope</option>
+                                </select>
+                            </div>
+                            <small>Use only targets that are explicitly permitted for your laboratory or research environment.</small>
+                        </div>
+                        <div class="target-actions">
+                            <button class="btn btn-ghost" id="clearRunBtn">Reset</button>
+                            <button class="btn btn-primary" id="runPipelineBtn"><span class="play">▶</span> Run pipeline</button>
+                        </div>
+                    </article>
+                    <div class="lab-grid">
+                        <section class="panel pipeline-panel">
+                            <div class="panel-head">
+                                <div>
+                                    <p class="eyebrow">Execution</p>
+                                    <h3>Research pipeline</h3>
+                                </div>
+                                <span class="badge badge-outline" id="pipelineState">Ready</span>
+                            </div>
+                            <div class="tool-stack" id="toolStack">
+                                <article class="tool-card" data-tool="subfinder">
+                                    <div class="tool-number">01</div>
+                                    <div class="tool-icon">S</div>
+                                    <div class="tool-copy"><strong>Subfinder</strong><span>Passive subdomain discovery</span></div>
+                                    <div class="tool-result"><strong id="subfinderResult">12</strong><span>domains</span></div>
+                                    <span class="tool-state">Ready</span>
+                                </article>
+                                <div class="connector"><span></span></div>
+                                <article class="tool-card" data-tool="httpx">
+                                    <div class="tool-number">02</div>
+                                    <div class="tool-icon">H</div>
+                                    <div class="tool-copy"><strong>HTTPX</strong><span>HTTP probing & service metadata</span></div>
+                                    <div class="tool-result"><strong id="httpxResult">7</strong><span>live</span></div>
+                                    <span class="tool-state">Ready</span>
+                                </article>
+                                <div class="connector"><span></span></div>
+                                <article class="tool-card" data-tool="ffuf">
+                                    <div class="tool-number">03</div>
+                                    <div class="tool-icon">F</div>
+                                    <div class="tool-copy"><strong>FFUF</strong><span>Content & endpoint discovery</span></div>
+                                    <div class="tool-result"><strong id="ffufResult">19</strong><span>endpoints</span></div>
+                                    <span class="tool-state">Ready</span>
+                                </article>
+                                <div class="connector"><span></span></div>
+                                <article class="tool-card" data-tool="nuclei">
+                                    <div class="tool-number">04</div>
+                                    <div class="tool-icon">N</div>
+                                    <div class="tool-copy"><strong>Nuclei</strong><span>Template-based vulnerability checks</span></div>
+                                    <div class="tool-result"><strong id="nucleiResult">3</strong><span>findings</span></div>
+                                    <span class="tool-state">Ready</span>
+                                </article>
+                            </div>
+                        </section>
+                        <aside class="panel session-panel">
+                            <div class="panel-head">
+                                <div>
+                                    <p class="eyebrow">Session</p>
+                                    <h3>Run details</h3>
+                                </div>
+                                <span class="session-id">LAB-0428</span>
+                            </div>
+                            <div class="detail-list">
+                                <div><span>Status</span><strong id="sessionStatus">Ready to run</strong></div>
+                                <div><span>Target</span><strong id="sessionTarget">demo.lab.local</strong></div>
+                                <div><span>Started</span><strong id="sessionStarted">—</strong></div>
+                                <div><span>Duration</span><strong id="sessionDuration">—</strong></div>
+                            </div>
+                            <div class="divider">
+                            </div>
+                            <div class="mini-chart-title"><span>Objects discovered</span><strong id="objectsTotal">41</strong></div>
+                            <div aria-label="Objects discovered chart" class="bar-chart">
+                                <div class="bar-row">
+                                    <span>Domains</span>
+                                    <div class="bar-track"><span style="width: 60%"></span></div>
+                                    <strong>12</strong>
+                                </div>
+                                <div class="bar-row">
+                                    <span>Hosts</span>
+                                    <div class="bar-track"><span style="width: 35%"></span></div>
+                                    <strong>7</strong>
+                                </div>
+                                <div class="bar-row">
+                                    <span>Endpoints</span>
+                                    <div class="bar-track"><span style="width: 95%"></span></div>
+                                    <strong>19</strong>
+                                </div>
+                                <div class="bar-row">
+                                    <span>Findings</span>
+                                    <div class="bar-track"><span style="width: 15%"></span></div>
+                                    <strong>3</strong>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                    <section class="panel results-panel">
+                        <div class="panel-head results-head">
+                            <div>
+                                <p class="eyebrow">Normalized output</p>
+                                <h3>Research results</h3>
+                            </div>
+                            <div class="result-actions"><button class="btn btn-small btn-ghost">Export JSON</button><button class="btn btn-small btn-ghost">Report</button></div>
+                        </div>
+                        <div aria-label="Research result types" class="tabs" role="tablist">
+                            <button class="tab active" data-result-tab="overview">Overview <span>41</span></button>
+                            <button class="tab" data-result-tab="domains">Domains <span>12</span></button>
+                            <button class="tab" data-result-tab="services">Services <span>7</span></button>
+                            <button class="tab" data-result-tab="endpoints">Endpoints <span>19</span></button>
+                            <button class="tab" data-result-tab="findings">Findings <span class="tab-warn">3</span></button>
+                        </div>
+                        <div class="result-view active" id="result-overview">
+                            <div class="result-summary-grid">
+                                <div class="summary-item"><span>Target</span><strong id="overviewTarget">demo.lab.local</strong><small>authorized laboratory scope</small></div>
+                                <div class="summary-item"><span>Technologies</span><strong>5 detected</strong><small>PHP · nginx · PostgreSQL · React · Redis</small></div>
+                                <div class="summary-item"><span>Open ports</span><strong>2 services</strong><small>443/tcp · 80/tcp</small></div>
+                                <div class="summary-item"><span>Findings</span><strong class="accent">3 to review</strong><small>All evidence retained with the run</small></div>
+                            </div>
+                            <div class="terminal-box">
+                                <div class="terminal-head"><span><i></i><i></i><i></i></span><small>normalized-run.log</small><span>LIVE VIEW</span></div>
+                                <div class="terminal-body" id="terminalOutput">
+                                    <p><span class="t-muted">[12:42:01]</span><span class="t-accent">subfinder</span> normalized 12 domains</p>
+                                    <p><span class="t-muted">[12:42:13]</span><span class="t-accent">httpx</span> confirmed 7 live hosts</p>
+                                    <p><span class="t-muted">[12:42:29]</span><span class="t-accent">ffuf</span> discovered 19 response-bearing endpoints</p>
+                                    <p><span class="t-muted">[12:42:44]</span><span class="t-accent">nuclei</span> produced 3 findings for review</p>
+                                    <p>
+                                        <span class="t-muted">[12:42:45]</span>
+                                        <span class="t-green">run completed</span>
+                                        <span class="t-muted">— evidence stored</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result-view" id="result-domains">
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Domain</th>
+                                            <th>Source</th>
+                                            <th>HTTP</th>
+                                            <th>Technology</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="mono">api.demo.lab.local</td>
+                                            <td>subfinder</td>
+                                            <td><span class="badge badge-green">200</span></td>
+                                            <td>nginx · PHP</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mono">admin.demo.lab.local</td>
+                                            <td>subfinder</td>
+                                            <td><span class="badge badge-green">200</span></td>
+                                            <td>nginx · React</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mono">dev.demo.lab.local</td>
+                                            <td>subfinder</td>
+                                            <td><span class="badge">403</span></td>
+                                            <td>nginx</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mono">cdn.demo.lab.local</td>
+                                            <td>subfinder</td>
+                                            <td><span class="badge badge-green">200</span></td>
+                                            <td>nginx</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="result-view" id="result-services">
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Host</th>
+                                            <th>Port</th>
+                                            <th>Scheme</th>
+                                            <th>Title</th>
+                                            <th>Server</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="mono">demo.lab.local</td>
+                                            <td>443</td>
+                                            <td>HTTPS</td>
+                                            <td>ShadowLab Demo</td>
+                                            <td>nginx</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mono">api.demo.lab.local</td>
+                                            <td>443</td>
+                                            <td>HTTPS</td>
+                                            <td>API Gateway</td>
+                                            <td>nginx</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mono">admin.demo.lab.local</td>
+                                            <td>443</td>
+                                            <td>HTTPS</td>
+                                            <td>Admin Console</td>
+                                            <td>nginx</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mono">demo.lab.local</td>
+                                            <td>80</td>
+                                            <td>HTTP</td>
+                                            <td>Redirect</td>
+                                            <td>nginx</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="result-view" id="result-endpoints">
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Endpoint</th>
+                                            <th>Status</th>
+                                            <th>Size</th>
+                                            <th>Source</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>GET</td>
+                                            <td class="mono">/api/v1/users</td>
+                                            <td>200</td>
+                                            <td>24.1 KB</td>
+                                            <td>ffuf</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GET</td>
+                                            <td class="mono">/api/v1/health</td>
+                                            <td>200</td>
+                                            <td>0.9 KB</td>
+                                            <td>ffuf</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GET</td>
+                                            <td class="mono">/admin</td>
+                                            <td>200</td>
+                                            <td>8.3 KB</td>
+                                            <td>ffuf</td>
+                                        </tr>
+                                        <tr>
+                                            <td>POST</td>
+                                            <td class="mono">/api/v1/auth/login</td>
+                                            <td>405</td>
+                                            <td>1.4 KB</td>
+                                            <td>ffuf</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="result-view" id="result-findings">
+                            <div class="finding-list">
+                                <article class="finding-row">
+                                    <span class="severity high">HIGH</span>
+                                    <div>
+                                        <strong>Exposed administrative endpoint</strong>
+                                        <p>
+                                            <span class="mono">/admin</span>
+                                            is reachable on the discovered web host. Review access controls within the authorized lab.
+                                        </p>
+                                    </div>
+                                    <span class="finding-tool">nuclei</span>
+                                </article>
+                                <article class="finding-row">
+                                    <span class="severity medium">MEDIUM</span>
+                                    <div>
+                                        <strong>Technology disclosure</strong>
+                                        <p>Server/framework headers reveal implementation details in the demo environment.</p>
+                                    </div>
+                                    <span class="finding-tool">nuclei</span>
+                                </article>
+                                <article class="finding-row">
+                                    <span class="severity medium">MEDIUM</span>
+                                    <div>
+                                        <strong>Potentially exposed API route</strong>
+                                        <p><span class="mono">/api/v1/users</span> returned a response and should be reviewed for intended exposure.</p>
+                                    </div>
+                                    <span class="finding-tool">nuclei</span>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </main>
+        </div>
+        <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-dot"></span><span id="toastText">Ready</span></div>
+        <script src="js/main.js"></script>
+        <script src="js/laboratory.js"></script>
+    </body>
+</html>

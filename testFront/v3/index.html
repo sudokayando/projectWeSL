@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShadowLab — Dashboard</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/dashboard.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <header class="topbar">
+                <a class="brand" href="index.html" aria-label="ShadowLab home">
+                    <span class="brand-mark">S</span>
+                    <span class="brand-copy"><strong>shadowlab</strong><small>security research platform</small></span>
+                </a>
+                <nav class="main-nav" aria-label="Основная навигация">
+                    <a href="index.html" class="nav-link active" data-page="dashboard">Dashboard</a>
+                    <a href="laboratory.html" class="nav-link" data-page="lab">Laboratory</a>
+                    <a href="history.html" class="nav-link" data-page="history">History</a>
+                    <a href="projects.html" class="nav-link" data-page="projects">Projects</a>
+                </nav>
+                <div class="topbar-actions">
+                    <span class="status-pill"><span class="status-dot"></span> System ready</span>
+                    <button class="icon-btn" title="Notifications" aria-label="Notifications">⌁</button>
+                    <a class="profile-chip" href="profile.html" title="Open profile"><span class="avatar">AK</span><span class="profile-name">Alex K.</span><span class="chevron">⌄</span></a>
+                </div>
+            </header>
+            <main class="page-wrap">
+                <section class="page active" id="page-dashboard">
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">Workspace / Overview</p>
+                            <h1>Good afternoon, Alex.</h1>
+                            <p class="muted">Run controlled web-security research from one place.</p>
+                        </div>
+                        <div class="heading-actions">
+                            <button class="btn btn-ghost" id="newProjectBtn">+ New project</button>
+                            <button class="btn btn-primary" data-navigate="laboratory.html" type="button">Open laboratory</button>
+                        </div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-content">
+                            <div class="hero-tag">LAB MODE <span>●</span></div>
+                            <h2>Turn reconnaissance into a structured research session.</h2>
+                            <p>
+                                Define a permitted target, run your tool chain, then inspect a unified view of domains, services, endpoints and findings.
+                            </p>
+                            <button class="btn btn-primary" data-navigate="laboratory.html" type="button">Start a research session <span>→</span></button>
+                        </div>
+                        <div aria-hidden="true" class="hero-grid">
+                            <div class="grid-glow">
+                            </div>
+                            <div class="scan-line">
+                            </div>
+                            <div class="hero-terminal">
+                                <div><span class="accent">subfinder</span> 12 domains</div>
+                                <div><span class="accent">httpx</span> 7 live hosts</div>
+                                <div><span class="accent">ffuf</span> 19 endpoints</div>
+                                <div><span class="accent">nuclei</span> 3 findings</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-head">
+                        <div>
+                            <p class="eyebrow">Workspace</p>
+                            <h3>Research overview</h3>
+                        </div>
+                        <button class="text-btn" data-navigate="history.html" type="button">View history →</button>
+                    </div>
+                    <div class="stats-grid">
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Projects</span><span class="stat-icon">⌁</span></div>
+                            <strong>04</strong>
+                            <small>2 active · 2 archived</small>
+                        </article>
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Research runs</span><span class="stat-icon">◴</span></div>
+                            <strong>27</strong>
+                            <small>+6 this month</small>
+                        </article>
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Targets</span><span class="stat-icon">◎</span></div>
+                            <strong>08</strong>
+                            <small>6 lab · 2 staging</small>
+                        </article>
+                        <article class="stat-card stat-accent">
+                            <div class="stat-top"><span>Open findings</span><span class="stat-icon">!</span></div>
+                            <strong>09</strong>
+                            <small>3 high · 6 medium</small>
+                        </article>
+                    </div>
+                    <div class="two-col">
+                        <article class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <p class="eyebrow">Recent</p>
+                                    <h3>Latest research runs</h3>
+                                </div>
+                                <span class="panel-count">4 shown</span>
+                            </div>
+                            <div class="run-list">
+                                <button class="run-row" data-navigate="laboratory.html" type="button">
+                                    <div class="run-main">
+                                        <span class="run-status done">
+                                        </span>
+                                        <div><strong>demo.lab.local</strong><small>full-web-chain</small></div>
+                                    </div>
+                                    <div class="run-meta"><span>9m ago</span><span class="badge badge-green">Completed</span></div>
+                                </button>
+                                <button class="run-row" data-navigate="laboratory.html" type="button">
+                                    <div class="run-main">
+                                        <span class="run-status done">
+                                        </span>
+                                        <div><strong>shop.lab.local</strong><small>recon-only</small></div>
+                                    </div>
+                                    <div class="run-meta"><span>1h ago</span><span class="badge badge-green">Completed</span></div>
+                                </button>
+                                <button class="run-row" data-navigate="laboratory.html" type="button">
+                                    <div class="run-main">
+                                        <span class="run-status working">
+                                        </span>
+                                        <div><strong>api.staging.local</strong><small>httpx → ffuf</small></div>
+                                    </div>
+                                    <div class="run-meta"><span>2h ago</span><span class="badge badge-orange">Running</span></div>
+                                </button>
+                                <button class="run-row" data-navigate="laboratory.html" type="button">
+                                    <div class="run-main">
+                                        <span class="run-status done">
+                                        </span>
+                                        <div><strong>training.local</strong><small>nuclei-only</small></div>
+                                    </div>
+                                    <div class="run-meta"><span>Yesterday</span><span class="badge">Completed</span></div>
+                                </button>
+                            </div>
+                        </article>
+                        <article class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <p class="eyebrow">Pipeline</p>
+                                    <h3>Default workflow</h3>
+                                </div>
+                                <span class="badge badge-outline">4 tools</span>
+                            </div>
+                            <div class="pipeline-mini">
+                                <div class="pipeline-node">
+                                    <span class="tool-logo">S</span>
+                                    <div><strong>Subfinder</strong><small>subdomains</small></div>
+                                </div>
+                                <span class="pipe-arrow">→</span>
+                                <div class="pipeline-node">
+                                    <span class="tool-logo">H</span>
+                                    <div><strong>HTTPX</strong><small>live hosts</small></div>
+                                </div>
+                                <span class="pipe-arrow">→</span>
+                                <div class="pipeline-node">
+                                    <span class="tool-logo">F</span>
+                                    <div><strong>FFUF</strong><small>content</small></div>
+                                </div>
+                                <span class="pipe-arrow">→</span>
+                                <div class="pipeline-node">
+                                    <span class="tool-logo">N</span>
+                                    <div><strong>Nuclei</strong><small>findings</small></div>
+                                </div>
+                            </div>
+                            <div class="panel-note">
+                                <span class="accent">Tip</span>
+                                Keep your chain visible while the run is active. It makes the data flow easier to understand.
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-dot"></span><span id="toastText">Ready</span></div>
+        <script src="js/main.js"></script>
+    </body>
+</html>
