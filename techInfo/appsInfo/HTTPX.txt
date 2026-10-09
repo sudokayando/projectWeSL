@@ -1,0 +1,952 @@
+PROJECTDISCOVERY HTTPX — ПОЛНАЯ ШПАРГАЛКА
+
+ВАЖНО:
+Это именно CLI-утилита ProjectDiscovery httpx.
+Не путать с Python-библиотекой httpx — это совершенно разные проекты.
+
+Основная идея httpx:
+быстро проверить список hosts/URLs и получить HTTP status, title, size, redirect, technologies, IP, server, headers и другие характеристики.
+
+
+============================================================
+1. БАЗОВЫЙ СИНТАКСИС
+============================================================
+
+    httpx [опции] [targets]
+
+Один URL:
+
+    httpx -u https://example.com
+
+Список через файл:
+
+    httpx -l hosts.txt
+
+Через stdin:
+
+    cat hosts.txt | httpx
+
+Пример hosts.txt:
+
+    example.com
+    api.example.com
+    admin.example.com
+    test.example.com
+
+
+============================================================
+2. ОСНОВНЫЕ INPUT ФЛАГИ
+============================================================
+
+-u
+
+Указать URL/target.
+
+    httpx -u https://example.com
+
+Можно передавать несколько targets в зависимости от версии/режима.
+
+
+-l
+
+Указать файл со списком targets.
+
+    httpx -l hosts.txt
+
+
+stdin
+
+Можно передавать результаты другой утилиты через pipe:
+
+    cat hosts.txt | httpx
+
+
+============================================================
+3. ОСНОВНЫЕ OUTPUT / PROBE ФЛАГИ
+============================================================
+
+-sc
+
+Status Code.
+
+    httpx -l hosts.txt -sc
+
+Пример:
+
+    https://example.com [200]
+    https://admin.example.com [403]
+    https://old.example.com [301]
+    https://api.example.com [401]
+
+Один из самых важных флагов.
+
+
+-title
+
+Получить HTML <title>.
+
+    httpx -l hosts.txt -title
+
+Пример:
+
+    https://example.com [Example Domain]
+    https://admin.example.com [Admin Panel]
+
+
+-cl
+
+Content-Length.
+
+    httpx -l hosts.txt -cl
+
+Показывает размер response.
+
+Очень полезно при сравнении ответов.
+
+
+-ct
+
+Content-Type.
+
+    httpx -l hosts.txt -ct
+
+Например:
+
+    text/html
+    application/json
+    application/javascript
+
+
+-location
+
+Показать redirect target.
+
+    httpx -l hosts.txt -sc -location
+
+Например:
+
+    http://example.com [301] [https://example.com/]
+
+
+-server
+
+Показать Server header.
+
+    httpx -l hosts.txt -server
+
+Например:
+
+    https://example.com [nginx]
+
+
+-td
+
+Technology Detection.
+
+    httpx -l hosts.txt -td
+
+Может показать технологии вроде:
+
+    WordPress
+    PHP
+    Nginx
+    React
+    Next.js
+    и т. д.
+
+Технологии определяются по fingerprint'ам.
+
+
+-ip
+
+Показать IP.
+
+    httpx -l hosts.txt -ip
+
+
+-cdn
+
+Определение CDN/WAF.
+
+    httpx -l hosts.txt -cdn
+
+
+-rt
+
+Response Time.
+
+    httpx -l hosts.txt -rt
+
+
+============================================================
+4. ОЧЕНЬ ПОЛЕЗНАЯ БАЗОВАЯ КОМБИНАЦИЯ
+============================================================
+
+    httpx -l hosts.txt -sc -title -cl -server -td -ip -location
+
+Концептуально можно получить:
+
+    https://example.com [200] [Example Domain] [1256] [nginx] [1.2.3.4]
+
+    https://admin.example.com [403] [Forbidden] [312] [nginx] [1.2.3.5]
+
+    https://api.example.com [401] [API] [842] [cloudflare] [1.2.3.6]
+
+Это дает первичную картину инфраструктуры.
+
+
+============================================================
+5. OUTPUT В ФАЙЛ
+============================================================
+
+-o
+
+Сохранить output в файл.
+
+    httpx -l hosts.txt -sc -title -o results.txt
+
+После этого:
+
+    cat results.txt
+
+
+Пример:
+
+    httpx -l hosts.txt \
+      -sc \
+      -title \
+      -td \
+      -o results.txt
+
+
+============================================================
+6. SILENT OUTPUT
+============================================================
+
+-silent
+
+Убирает лишний вывод.
+
+    httpx -l hosts.txt -silent
+
+Очень полезно для pipeline:
+
+    cat hosts.txt | httpx -silent | ...
+
+Или:
+
+    subfinder -d example.com -silent | httpx -silent
+
+
+============================================================
+7. MATCHERS И FILTERS
+============================================================
+
+Одна из самых важных частей httpx.
+
+
+-mc
+
+Match status code.
+
+Оставляет только указанные status codes.
+
+    httpx -l hosts.txt -mc 200
+
+Несколько:
+
+    httpx -l hosts.txt -mc 200,301,302
+
+Запомнить:
+
+    mc = MATCH
+
+
+-fc
+
+Filter status code.
+
+Убирает указанные status codes.
+
+    httpx -l hosts.txt -fc 404
+
+Несколько:
+
+    httpx -l hosts.txt -fc 404,403
+
+Запомнить:
+
+    fc = FILTER
+
+
+Главное отличие:
+
+    -mc -> что хочу увидеть
+    -fc -> что хочу убрать
+
+
+-ms
+
+Match string.
+
+Ищет строку в response.
+
+    httpx -l hosts.txt -ms "admin"
+
+Оставит ответы, содержащие:
+
+    admin
+
+
+-mr
+
+Match regex.
+
+    httpx -l hosts.txt -mr "admin|login|dashboard"
+
+Оставит ответы, соответствующие regex.
+
+
+-fl
+
+Filter length.
+
+Позволяет фильтровать responses по длине.
+
+Например:
+
+    httpx -l hosts.txt -fl 1234
+
+Это особенно полезно при большом количестве одинаковых 404.
+
+
+============================================================
+8. JSON OUTPUT
+============================================================
+
+-json
+
+Выводить результаты в JSONL.
+
+    httpx -l hosts.txt -json
+
+Сохранить:
+
+    httpx -l hosts.txt -json -o results.json
+
+Важно:
+это JSONL, то есть каждый результат представляет собой отдельный JSON object.
+
+
+Пример полезной комбинации:
+
+    httpx -l hosts.txt \
+      -json \
+      -sc \
+      -title \
+      -td \
+      -ip \
+      -o results.json
+
+
+============================================================
+9. RESPONSE HEADERS И HTTP RESPONSE
+============================================================
+
+-irh
+
+Включить response headers в JSON output.
+
+    httpx -l hosts.txt -json -irh
+
+Полезно для анализа:
+
+    Server
+    Location
+    Set-Cookie
+    Content-Type
+    CSP
+    HSTS
+    и других headers.
+
+
+-irr
+
+Включить полный HTTP request/response.
+
+    httpx -u https://example.com -json -irr
+
+
+-irrb
+
+Base64-encoded request/response.
+
+    httpx -u https://example.com -json -irrb
+
+
+============================================================
+10. REDIRECTS
+============================================================
+
+-location
+
+Показать redirect target.
+
+    httpx -u http://example.com -sc -location
+
+
+-fr
+
+Follow redirects.
+
+    httpx -u http://example.com -fr
+
+
+-maxr
+
+Максимальное количество redirects.
+
+    httpx -u http://example.com -fr -maxr 10
+
+
+-fhr
+
+Follow redirects только на том же host.
+
+    httpx -u http://example.com -fhr
+
+
+Полезно понимать:
+
+    -location -> показать, куда ведет redirect
+    -fr       -> реально перейти по redirect
+
+
+============================================================
+11. HTTP HEADERS
+============================================================
+
+-H
+
+Добавить custom HTTP header.
+
+    httpx -u https://example.com \
+      -H "X-Custom-Header: test"
+
+
+Например Authorization:
+
+    httpx -u https://example.com/api \
+      -H "Authorization: Bearer TOKEN"
+
+
+Это особенно полезно для тестирования API в рамках разрешенного доступа.
+
+
+============================================================
+12. HTTP METHOD И BODY
+============================================================
+
+-x
+
+Выбрать HTTP method.
+
+Например:
+
+    httpx -u https://example.com/api -x POST
+
+
+Можно использовать методы вроде:
+
+    GET
+    POST
+    PUT
+    PATCH
+    DELETE
+    HEAD
+    OPTIONS
+
+
+Также существует режим:
+
+    -x all
+
+для проверки HTTP methods, поддерживаемых текущей версией/режимом httpx.
+
+
+-body
+
+Передать request body.
+
+Например:
+
+    httpx -u https://example.com/api \
+      -body '{"test":"value"}'
+
+
+Комбинация:
+
+    httpx -u https://example.com/api \
+      -x POST \
+      -body '{"test":"value"}'
+
+
+============================================================
+13. PATH
+============================================================
+
+-path
+
+Проверить конкретный путь относительно targets.
+
+Например:
+
+    httpx -l hosts.txt -path /admin
+
+Можно использовать несколько paths:
+
+    httpx -l hosts.txt -path /admin,/login,/api
+
+Концептуальный результат:
+
+    https://a.example.com/admin [403]
+    https://a.example.com/login [200]
+    https://a.example.com/api [401]
+
+
+============================================================
+14. SCREENSHOT
+============================================================
+
+-ss
+
+Сделать screenshot веб-страницы.
+
+    httpx -l hosts.txt -ss
+
+Полезно, когда есть много живых веб-приложений и нужно быстро визуально понять, что находится на endpoint.
+
+
+============================================================
+15. SPEED / PERFORMANCE
+============================================================
+
+-t
+
+Количество threads.
+
+Например:
+
+    httpx -l hosts.txt -t 100
+
+
+-rl
+
+Requests per second.
+
+    httpx -l hosts.txt -rl 100
+
+
+-timeout
+
+Timeout в секундах.
+
+    httpx -l hosts.txt -timeout 10
+
+
+Пример:
+
+    httpx -l hosts.txt \
+      -t 100 \
+      -rl 100 \
+      -timeout 10
+
+
+При работе с чужой инфраструктурой подбирай rate limit так, чтобы не создавать лишнюю нагрузку и учитывать разрешенные правила тестирования.
+
+
+============================================================
+16. VERBOSE / DEBUG
+============================================================
+
+-v
+
+Verbose output.
+
+    httpx -u https://example.com -v
+
+
+-debug
+
+Debug information.
+
+    httpx -u https://example.com -debug
+
+Используется, когда нужно понять, что именно делает httpx и почему получен определенный результат.
+
+
+============================================================
+17. ПОЛЕЗНЫЕ ГОТОВЫЕ КОМАНДЫ
+============================================================
+
+Просто проверить список:
+
+    httpx -l hosts.txt
+
+
+Status codes:
+
+    httpx -l hosts.txt -sc
+
+
+Нормальный базовый HTTP recon:
+
+    httpx -l hosts.txt \
+      -sc \
+      -title \
+      -cl \
+      -server \
+      -td \
+      -ip \
+      -location
+
+
+Сохранить:
+
+    httpx -l hosts.txt \
+      -sc \
+      -title \
+      -td \
+      -o results.txt
+
+
+Только интересующие статусы:
+
+    httpx -l hosts.txt -mc 200,301,302,401,403
+
+
+Убрать 404:
+
+    httpx -l hosts.txt -fc 404
+
+
+JSON:
+
+    httpx -l hosts.txt \
+      -json \
+      -sc \
+      -title \
+      -td \
+      -ip \
+      -o results.json
+
+
+JSON + headers:
+
+    httpx -l hosts.txt \
+      -json \
+      -irh \
+      -sc \
+      -title \
+      -o results.json
+
+
+Следовать redirects:
+
+    httpx -l hosts.txt -fr -sc -location
+
+
+Проверить /admin:
+
+    httpx -l hosts.txt -path /admin -sc -title
+
+
+Проверить несколько paths:
+
+    httpx -l hosts.txt \
+      -path /admin,/login,/api \
+      -sc \
+      -title
+
+
+Тихий pipeline:
+
+    cat hosts.txt | httpx -silent
+
+
+Сохранить только нужные status codes:
+
+    httpx -l hosts.txt \
+      -mc 200,301,302,401,403 \
+      -silent \
+      -o interesting.txt
+
+
+============================================================
+18. PIPELINE С ДРУГИМИ ИНСТРУМЕНТАМИ
+============================================================
+
+Одна из главных сильных сторон httpx — работа через stdin/stdout.
+
+Например:
+
+    cat hosts.txt | httpx -silent
+
+
+Subfinder -> httpx:
+
+    subfinder -d example.com -silent | httpx -silent
+
+
+Subfinder -> httpx с базовой информацией:
+
+    subfinder -d example.com -silent | \
+      httpx -silent -sc -title -td -ip
+
+
+Если на входе список URL:
+
+    cat urls.txt | httpx -silent -sc -title
+
+
+Можно сохранить:
+
+    cat urls.txt | \
+      httpx -silent -sc -title -o results.txt
+
+
+============================================================
+19. КАК ЧИТАТЬ РЕЗУЛЬТАТЫ HTTPX
+============================================================
+
+Например:
+
+    https://example.com [200] [Example Domain] [1256]
+
+Можно интерпретировать как:
+
+    URL
+    Status = 200
+    Title = Example Domain
+    Content-Length = 1256
+
+
+Другой пример:
+
+    https://admin.example.com [403] [Forbidden] [312]
+
+Это означает:
+
+    endpoint отвечает;
+    сервер вернул 403;
+    title = Forbidden;
+    размер response = 312 bytes.
+
+
+Важно:
+403 сам по себе не доказывает, что endpoint является административной панелью.
+
+
+============================================================
+20. ПОЧЕМУ CONTENT-LENGTH ВАЖЕН
+============================================================
+
+Представь:
+
+    /random1 -> 404 [154]
+    /random2 -> 404 [154]
+    /random3 -> 404 [154]
+    /admin   -> 404 [8921]
+
+Несмотря на одинаковый status code, response /admin отличается по размеру.
+
+Это повод исследовать его отдельно.
+
+Поэтому полезны:
+
+    -sc
+    -cl
+    -title
+    -ct
+    -location
+
+а не только:
+
+    -sc
+
+
+============================================================
+21. КАК ДУМАТЬ ПРО 401 / 403 / 404 / 405
+============================================================
+
+401:
+
+    authentication требуется/не пройдена.
+
+403:
+
+    доступ запрещен.
+
+404:
+
+    ресурс не найден,
+    НО endpoint может быть скрыт или приложение намеренно маскирует его.
+
+405:
+
+    endpoint может существовать,
+    но HTTP method не разрешен.
+
+
+Поэтому:
+
+    404 != обязательно "endpoint отсутствует"
+    403 != обязательно "endpoint существует"
+    401 != обязательно "у пользователя нет прав"
+
+
+Всегда полезно сравнивать:
+
+    status
+    body
+    content-length
+    headers
+    title
+    response time
+
+
+============================================================
+22. ВАЖНЫЕ ФЛАГИ — КОРОТКАЯ ТАБЛИЦА
+============================================================
+
+-u          URL/target
+-l          файл со списком
+-sc         status code
+-title      HTML title
+-cl         content length
+-ct         Content-Type
+-location   redirect target
+-server     Server header
+-td         technology detection
+-ip         IP
+-cdn        CDN/WAF detection
+-rt         response time
+
+-mc         match status code
+-fc         filter status code
+-ms         match string
+-mr         match regex
+-fl         filter response length
+
+-o          сохранить output
+-json       JSONL output
+-irh        response headers в JSON
+-irr        полный request/response
+-irrb       base64 request/response
+
+-fr         follow redirects
+-maxr       maximum redirects
+-fhr        follow redirects only on same host
+
+-H          custom HTTP header
+-body       request body
+-x           HTTP method
+-path       проверить path
+-ss         screenshot
+
+-t           threads
+-rl          requests per second
+-timeout     timeout
+
+-silent     минимальный output
+-v           verbose
+-debug      debug output
+
+
+============================================================
+23. ЧТО Я БЫ ЗАПОМНИЛ В ПЕРВУЮ ОЧЕРЕДЬ
+============================================================
+
+Если ты только начинаешь активно работать с httpx, сначала выучи:
+
+    -u
+    -l
+    -sc
+    -title
+    -cl
+    -location
+    -server
+    -td
+    -ip
+    -o
+    -silent
+    -mc
+    -fc
+    -ms
+    -mr
+    -json
+    -irh
+    -fr
+    -H
+    -path
+    -t
+    -rl
+    -timeout
+
+
+Самая полезная базовая команда:
+
+    httpx -l hosts.txt \
+      -sc \
+      -title \
+      -cl \
+      -location \
+      -server \
+      -td \
+      -ip
+
+
+Самая полезная идея для match/filter:
+
+    -mc -> что хочу увидеть
+    -fc -> что хочу убрать
+
+И для автоматизации:
+
+    input -> httpx -> output
+
+
+Например:
+
+    subfinder
+        |
+        v
+      httpx
+        |
+        v
+    results.json
+
+
+============================================================
+24. ГЛАВНОЕ НАПОМИНАНИЕ
+============================================================
+
+ProjectDiscovery httpx — это инструмент HTTP probing/enumeration.
+
+Он особенно полезен для:
+
+- проверки живых HTTP/HTTPS hosts;
+- определения status codes;
+- получения titles;
+- определения технологий;
+- получения IP;
+- определения CDN/WAF;
+- анализа redirects;
+- получения headers;
+- сравнения response sizes;
+- screenshot'ов;
+- автоматизации через stdin/stdout;
+- передачи результатов дальше в другие инструменты.
+
+При этом httpx сам по себе не означает "найти уязвимость".
+Он помогает быстро собрать и структурировать информацию, на основе которой дальше можно проводить разрешенное security testing.

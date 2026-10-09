@@ -5,4 +5,3 @@ Hex Editor Microsoft microsoft.com 7,382,104 - extension
 ctrl shift e - to open
 
 alt and lmb to file - to close
-
