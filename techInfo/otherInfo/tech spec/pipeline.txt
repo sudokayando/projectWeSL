@@ -1,0 +1,25 @@
+    Subfinder обнаружил:
+api.example.local
+dev.example.local
+admin.example.local
+
+    Httpx:
+https://api.example.local 200
+https://dev.example.local 200
+https://admin.example.local 403
+
+    WhatWeb:
+api.example.local → nginx + PHP
+dev.example.local → Apache + Laravel
+
+    Ffuf:
+/admin
+/api
+/debug
+/test
+
+    ParamSpider:
+?id=
+?user=
+?redirect=
+?url=
