@@ -1,0 +1,34 @@
+https://github.com/projectdiscovery/nuclei-templates - offical nuclei templates repo 
+
+nuclei -version
+nuclei -update
+nuclei -update-templates
+
+FOR TAMPLATES CHECK
+nuclei -tl
+nuclei -h
+
+BASE COMMAND
+nuclei \
+  -l alive.txt \
+  -severity info,low,medium,high,critical \
+  -rl 5 \
+  -c 10 \
+  -bs 10 \
+  -timeout 10 \
+  -retries 1 \
+  -stats \
+  -jsonl \
+  -o results/nuclei-results.jsonl
+
+Что здесь происходит:
+- -l alive.txt — список доступных целей.
+- -severity ... — выбирает все перечисленные уровни серьёзности.
+- -rl 5 — ограничивает общий поток запросов пятью в секунду.
+- -c 10 — задаёт параллелизм шаблонов.
+- -bs 10 — задаёт размер пакета целей для обработки каждым шаблоном.
+- -timeout 10 — тайм-аут запроса.
+- -retries 1 — одна повторная попытка.
+- -stats — статистика выполнения.
+- -jsonl — вывод в JSON Lines.
+- -o — сохранение результатов.

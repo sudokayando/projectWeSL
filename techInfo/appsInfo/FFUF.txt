@@ -1,0 +1,141 @@
+ffuf -u https://target.example/FUZZ -w wordlist.txt             just baseeee
+MOST POPULAR SANAKIRJA - https://github.com/danielmiessler/SecLists
+ffuf (ex: ffuf -u https://example.com/FUZZ -w common.txt -fc 404 )          smtg old 
+
+
+WHAT I NEED:
+ffuf \
+  -u "https://TARGET/FUZZ" \
+  -w "/usr/share/seclists/Discovery/Web-Content/common.txt" \
+  -e .php,.html,.htm,.js,.json,.txt,.xml,.yaml,.yml,.conf,.config,.bak,.old,.zip,.tar.gz \
+  -ac \
+  -v \
+  -t 20 \
+  -rate 10 \
+  -timeout 10 \
+  -maxtime 1800 \
+  -of json \
+  -o "results/ffuf-content.json"'
+and at the same time i gotta make a directory by myself
+mkdir -p results
+
+
+virtual hosts scanning:
+ffuf \
+  -u "http://TARGET_IP/" \
+  -H "Host: FUZZ.example.com" \
+  -w "/usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt" \
+  -ac \
+  -v \
+  -t 20 \
+  -rate 10 \
+  -timeout 10 \
+  -of json \
+  -o results/ffuf-vhosts.json
+
+admin panals scan
+ffuf \
+  -u "https://TARGET/FUZZ" \
+  -w "/usr/share/seclists/Discovery/Web-Content/common.txt" \
+  -ac \
+  -mc 200,204,301,302,307,401,403,405 \
+  -v \
+  -t 20 \
+  -rate 10 \
+  -timeout 10 \
+  -of json \
+  -o results/ffuf-admin-panels.json
+
+    SANAKIRJA
+admin
+administrator
+login
+dashboard
+manage
+management
+control
+console
+panel
+portal
+
+
+1.6. Поиск файлов и резервных копий
+ffuf \
+  -u "https://TARGET/FUZZ" \
+  -w "/usr/share/seclists/Discovery/Web-Content/common.txt" \
+  -e .bak,.old,.backup,.orig,.save,.tmp,.zip,.tar,.gz,.sql,.db,.conf,.config,.env,.log \
+  -ac \
+  -v \
+  -t 15 \
+  -rate 5 \
+  -timeout 10 \
+  -of json \
+  -o results/ffuf-files.json
+
+1.7. Поиск API-endpoints
+ffuf \
+  -u "https://TARGET/api/FUZZ" \
+  -w "/usr/share/seclists/Discovery/Web-Content/common.txt" \
+  -ac \
+  -mc 200,201,202,204,301,302,307,400,401,403,405 \
+  -v \
+  -t 15 \
+  -rate 5 \
+  -timeout 10 \
+  -of json \
+  -o results/ffuf-api.json
+
+    SANAKIRJA
+users
+user
+accounts
+account
+auth
+login
+logout
+token
+profile
+settings
+health
+status
+docs
+openapi.json
+swagger.json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Флаг	Что делает
+-u	URL с точкой подстановки FUZZ
+-w	Словарь
+-e	Расширения файлов
+-H	HTTP-заголовок
+-X	HTTP-метод
+-d	Тело запроса
+-b	Cookie
+-mc	Какие HTTP-коды показывать
+-fc	Какие HTTP-коды исключать
+-fs	Исключить ответы указанного размера
+-fw	Исключить ответы с указанным числом слов
+-fl	Исключить ответы с указанным числом строк
+-fr	Исключить ответы по регулярному выражению
+-ac	Автоматическая калибровка ответов
+-recursion	Рекурсивный поиск
+-recursion-depth	Глубина рекурсии
+-t	Число параллельных потоков
+-rate	Ограничение запросов в секунду
+-maxtime	Максимальное время выполнения
+-o	Файл результатов
+-of	Формат файла результатов
+-v	Подробный вывод
