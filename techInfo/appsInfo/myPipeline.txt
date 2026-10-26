@@ -1,0 +1,22 @@
+subfinder  -d example.com -o alldoms.txt
+httpx -l alldoms.txt -title -cl -location -td -ct -sc -o firstcall.txt
+httpx -l alldoms.txt -mc 200 -o alive.txt
+
+
+        gotta think about 
+        and at the same time i gotta make a directory by myself
+
+mkdir -p results
+
+ffuf \
+  -u "https://TARGET/FUZZ" \
+  -w "/usr/share/seclists/Discovery/Web-Content/common.txt" \
+  -e .php,.html,.htm,.js,.json,.txt,.xml,.yaml,.yml,.conf,.config,.bak,.old,.zip,.tar.gz \
+  -ac \
+  -v \
+  -t 20 \
+  -rate 10 \
+  -timeout 10 \
+  -maxtime 1800 \
+  -of json \
+  -o "results/ffuf-content.json"'
